@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, BookOpen, Calendar as CalendarIcon, BarChart3, Menu, X, CheckCircle, AlertCircle, X as XIcon } from 'lucide-react';
+import { Plus, BookOpen, Calendar as CalendarIcon, BarChart3, X, CheckCircle, AlertCircle, X as XIcon } from 'lucide-react';
 import { Dashboard } from './components/Dashboard';
 import { ExamForm } from './components/ExamForm';
 import { Calendar } from './components/Calendar';
@@ -46,7 +46,7 @@ export default function App() {
   const [showExamForm, setShowExamForm] = useState(false);
   const [selectedDate, setSelectedDate] = useState<string>('');
   const [editingExam, setEditingExam] = useState<Exam | null>(null);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+// Removed unused state variable mobileMenuOpen
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' | 'warning' } | null>(null);
 
   const showToast = (message: string, type: 'success' | 'error' | 'warning') => {
@@ -290,7 +290,7 @@ export default function App() {
                   key={item.id}
                   onClick={() => {
                     setCurrentView(item.id as View);
-                    setMobileMenuOpen(false);
+// Remove setMobileMenuOpen since it's not being used
                   }}
                   className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-colors ${
                     currentView === item.id
@@ -311,7 +311,7 @@ export default function App() {
               onClick={() => {
                 setShowExamForm(true);
                 setEditingExam(null);
-                setMobileMenuOpen(false);
+// Remove setMobileMenuOpen since it's not being used and doesn't exist
               }}
               className="w-full bg-gradient-to-r from-blue-600 to-green-600 text-white rounded-xl py-3 px-4 flex items-center justify-center gap-2 hover:from-blue-700 hover:to-green-700 transition-all duration-200 shadow-lg hover:shadow-xl"
             >
@@ -342,23 +342,21 @@ export default function App() {
               </div>
               
               {/* Navigation Bar */}
-              <div className="flex flex-wrap items-center justify-between gap-4 mb-6 p-4 bg-white rounded-xl shadow-sm border border-gray-100">
-                <div className="flex flex-wrap items-center gap-2">
-                  {navigation.map((item) => (
-                    <button
-                      key={item.id}
-                      onClick={() => setCurrentView(item.id as View)}
-                      className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                        currentView === item.id
-                          ? 'bg-blue-100 text-blue-700 border border-blue-200 shadow-sm'
-                          : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                      }`}
-                    >
-                      <item.icon className="h-4 w-4" />
-                      {item.label}
-                    </button>
-                  ))}
-                </div>
+              <div className="flex flex-wrap items-center gap-2 mb-6 p-4 bg-white rounded-xl shadow-sm border border-gray-100">
+                {navigation.map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => setCurrentView(item.id as View)}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                      currentView === item.id
+                        ? 'bg-blue-100 text-blue-700 border border-blue-200 shadow-sm'
+                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                    }`}
+                  >
+                    <item.icon className="h-4 w-4" />
+                    {item.label}
+                  </button>
+                ))}
                 <button
                   onClick={() => {
                     setShowExamForm(true);

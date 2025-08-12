@@ -23,7 +23,7 @@ const DAYS_OF_WEEK = [
 export const ExamForm: React.FC<ExamFormProps> = ({ isOpen, onClose, onSubmit, onDelete, exam }) => {
   const [formData, setFormData] = useState(() => ({
     name: '',
-    credits: 6,
+    credits: 0,
     examDate: '',
     difficulty: 'medium' as const,
     weeklyHours: {} as Record<string, number>,
@@ -36,13 +36,13 @@ export const ExamForm: React.FC<ExamFormProps> = ({ isOpen, onClose, onSubmit, o
         name: exam.name,
         credits: exam.credits,
         examDate: exam.examDate,
-        difficulty: exam.difficulty,
+        difficulty: exam.difficulty as 'medium',
         weeklyHours: exam.weeklyHours,
       });
     } else {
       setFormData({
         name: '',
-        credits: 6,
+        credits: 0,
         examDate: '',
         difficulty: 'medium',
         weeklyHours: {},
@@ -151,7 +151,7 @@ export const ExamForm: React.FC<ExamFormProps> = ({ isOpen, onClose, onSubmit, o
                   min="1"
                   max="30"
                   value={formData.credits}
-                  onChange={(e) => setFormData(prev => ({ ...prev, credits: parseInt(e.target.value) || 6 }))}
+                  onChange={(e) => setFormData(prev => ({ ...prev, credits: parseInt(e.target.value) || 0 }))}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                 />
               </div>
@@ -175,7 +175,7 @@ export const ExamForm: React.FC<ExamFormProps> = ({ isOpen, onClose, onSubmit, o
                 </label>
                 <select
                   value={formData.difficulty}
-                  onChange={(e) => setFormData(prev => ({ ...prev, difficulty: e.target.value as 'low' | 'medium' | 'high' }))}
+                  onChange={(e) => setFormData(prev => ({ ...prev, difficulty: e.target.value as 'medium' }))}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                 >
                   <option value="low">Bassa (-20%)</option>

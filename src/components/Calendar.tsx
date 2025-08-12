@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight, Clock } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Exam, DayProgress } from '../types/exam';
 import { formatDate, formatDateForInput, getWeekDates, getDayOfWeek, isHoliday } from '../utils/examCalculations';
 
@@ -189,22 +189,22 @@ export const Calendar: React.FC<CalendarProps> = ({
                                 <div className="flex flex-wrap gap-1">
                                   {pendingHours > 0 && (
                                     <span className="bg-yellow-100 text-yellow-800 px-1 py-0.5 rounded text-xs">
-                                      ⏳ {pendingHours.toFixed(1)}h
+                                      ⏳ {pendingHours.toFixed(1)} {pendingHours === 1 ? 'ora in pending' : 'ore in pending'}
                                     </span>
                                   )}
                                   {(examProgress.skippedHours || 0) > 0 && (
                                     <span className="bg-red-100 text-red-800 px-1 py-0.5 rounded text-xs">
-                                      ❌ {examProgress.skippedHours!.toFixed(1)}h
+                                      ❌ {examProgress.skippedHours!.toFixed(1)} {examProgress.skippedHours === 1 ? 'ora saltata' : 'ore saltate'}
                                     </span>
                                   )}
                                   {(examProgress.actualHours || 0) > 0 && (
                                     <span className="bg-green-100 text-green-800 px-1 py-0.5 rounded text-xs">
-                                      ✅ {Math.min(examProgress.actualHours!, examProgress.plannedHours).toFixed(1)}h
+                                      ✅ {Math.min(examProgress.actualHours!, examProgress.plannedHours).toFixed(1)} {Math.min(examProgress.actualHours!, examProgress.plannedHours) === 1 ? 'ora completata' : 'ore completate'}
                                     </span>
                                   )}
                                   {extraHours > 0 && (
                                     <span className="bg-blue-100 text-blue-800 px-1 py-0.5 rounded text-xs">
-                                      ➕ {extraHours.toFixed(1)}h
+                                      ➕ {extraHours.toFixed(1)} {extraHours === 1 ? 'ora extra' : 'ore extra'}
                                     </span>
                                   )}
                                 </div>
@@ -379,3 +379,5 @@ export const Calendar: React.FC<CalendarProps> = ({
     </div>
   );
 };
+
+export default Calendar;
